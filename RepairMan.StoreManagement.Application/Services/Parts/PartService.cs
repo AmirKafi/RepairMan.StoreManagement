@@ -67,7 +67,10 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
             var result = new ServiceResponse<PartUpdateDto>();
             try
             {
-                var part = await _repository.GetById(partId);
+                var part = await _repository.GetQuerable()
+                                            .Include(x=> x.PartCategories)
+                                            .ThenInclude(x=> x.Category)
+                                            .FirstOrDefaultAsync();
 
                 if (part is null)
                     result.SetException("قطعه مورد نظر یافت نشد!");
@@ -97,6 +100,8 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
                             dto.Description,
                             dto.QTY,
                             dto.CategoriesId);
+
+                await _repository.Update(part);
 
                 result.SetData(true);
             }

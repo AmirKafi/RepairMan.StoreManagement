@@ -96,6 +96,8 @@ namespace RepairMan.StoreManagement.Application.Services.Phones
                              dto.Description,
                              dto.Qty);
 
+                await _repository.Update(phone);
+
                 result.SetData(true);
             }
             catch (Exception ex)
