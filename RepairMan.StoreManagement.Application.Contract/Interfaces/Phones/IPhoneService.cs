@@ -15,5 +15,6 @@ namespace RepairMan.StoreManagement.Application.Contract.Interfaces.Phones
         Task<ServiceResponse<PhoneUpdateDto>> GetPhone(int phoneId);
         Task<ServiceResponse<bool>> UpdatePhone(PhoneUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(int phoneId);
+        Task<ServiceResponse<bool>> UsePhone(int phoneId);
     }
 }

@@ -15,5 +15,6 @@ namespace RepairMan.StoreManagement.Application.Contract.Interfaces.Parts
         Task<ServiceResponse<PartUpdateDto>> GetPart(int partId);
         Task<ServiceResponse<bool>> UpdatePart(PartUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(int partId);
+        Task<ServiceResponse<bool>> UsePart(int partId); 
     }
 }

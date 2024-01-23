@@ -4,11 +4,13 @@ using RepairMan.StoreManagement.Application.Contract.Dto.Categories;
 using RepairMan.StoreManagement.Application.Contract.Dto.Parts;
 using RepairMan.StoreManagement.Application.Contract.Interfaces.Categories;
 using RepairMan.StoreManagement.Application.Contract.Interfaces.Parts;
+using RepairMan.StoreManagement.Controllers.Base;
+using RepairMan.StoreManagement.Localization.Enums;
 using RepairMan.StoreManagement.Localization.Utility.ServiceResponse;
 
 namespace RepairMan.StoreManagement.Controllers
 {
-    public class PartController : Controller
+    public class PartController : BaseController
     {
         #region Constrcutor
         private readonly IPartService _partService;
@@ -23,9 +25,16 @@ namespace RepairMan.StoreManagement.Controllers
         #endregion
 
         [Route("/Part/Index")]
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
         {
             ViewBag.ActivePage = "Part";
+
+            var categories = await _categoryService.GetAsCombo().ConfigureAwait(false);
+            ViewBag.Categories = ComboToSelectList(categories.Data);
+            ((List<SelectListItem>)ViewBag.Categories).Insert(0,new SelectListItem());
+
+            ViewBag.Availabilities = EnumToList(typeof(AvailabilityEnum), null);
+            ((List<SelectListItem>)ViewBag.Availabilities).Insert(0, new SelectListItem() { Text = "همه" });
 
             return View();
         }
@@ -47,12 +56,7 @@ namespace RepairMan.StoreManagement.Controllers
 
 
             var categories = await _categoryService.GetAsCombo().ConfigureAwait(false);
-
-            ViewBag.Categories = categories.Data.Select(x => new SelectListItem()
-            {
-                Value = x.Value.ToString(),
-                Text = x.Title.ToString(),
-            }).ToList();
+            ViewBag.Categories = ComboToSelectList(categories.Data);
 
             return PartialView("Create", model);
         }
@@ -83,12 +87,7 @@ namespace RepairMan.StoreManagement.Controllers
             }
 
             var categories = await _categoryService.GetAsCombo().ConfigureAwait(false);
-
-            ViewBag.Categories = categories.Data.Select(x => new SelectListItem()
-            {
-                Value = x.Value.ToString(),
-                Text = x.Title.ToString(),
-            }).ToList();
+            ViewBag.Categories = ComboToSelectList(categories.Data);
 
             var model = Part.Data;
 
@@ -113,6 +112,15 @@ namespace RepairMan.StoreManagement.Controllers
             ViewBag.ActivePage = "Part";
 
             var result = await _partService.Delete(ids[0]).ConfigureAwait(false);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        [Route("/Part/UsePart")]
+        public async Task<ActionResult> UsePart(int id)
+        {
+            var result = await _partService.UsePart(id).ConfigureAwait(false);
 
             return Json(result);
         }

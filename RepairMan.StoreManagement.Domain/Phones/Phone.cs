@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RepairMan.StoreManagement.Domain.Parts;
 using RepairMan.StoreManagement.Localization;
 
 namespace RepairMan.StoreManagement.Domain.Phones
@@ -49,6 +50,13 @@ namespace RepairMan.StoreManagement.Domain.Phones
             this.Model = model;
             this.Description = description;
             this.Qty = qty;
+
+            return this;
+        }
+
+        public Phone UsePhone()
+        {
+            this.Qty = this.Qty - 1;
 
             return this;
         }

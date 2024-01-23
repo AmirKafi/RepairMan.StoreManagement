@@ -26,6 +26,11 @@
                                     <input type="text" id="Model" class="form-control rtlrt " maxlength="50" placeholder="مدل" autocomplete="off" />
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <div class="form-group marginless">
+                                    @Html.DropDownList("Availability", (IEnumerable<SelectListItem>)ViewBag.Availabilities, new { @class = "form-control selectpicker",data_live_search = true, data_size = "5", data_none_selected_text = "موجودی" })
+                                </div>
+                            </div>
                         </div>
 
                         <table class="table text-nowrap mb-0 align-middle"
@@ -44,6 +49,7 @@
                                data-additional-params="window.phonesAdditionalParams"
                                data-ajax="window.ajaxRequest"
                                data-response-handler="window.responseHandler"
+                               data-use-url="@Url.Action("UsePhone", "Phone")"
                                data-url="@Url.Action("LoadPhones", "Phone")">
                             <thead>
                                 <tr>
@@ -54,7 +60,7 @@
                                     <th data-field="description" data-width="1000">توضیحات</th>
                                     <th data-field="qty" data-width="1000">تعداد</th>
                                     <th data-field="createdOnFa" data-width="1000">تاریخ ثبت</th>
-                                    @*<th data-field="id" data-width="1000" data-formatter="window.phoneFormatter" data-events="window.phoneEvents">عملیات</th>*@
+                                    <th data-field="id" data-width="1000" data-formatter="window.phoneFormatter" data-events="window.phoneEvents">عملیات</th>
                                 </tr>
                             </thead>
                         </table>

@@ -13,7 +13,7 @@ namespace RepairMan.StoreManagement.Data.EFConfigs
     {
         public void Configure(EntityTypeBuilder<Phone> builder)
         {
-            
+
         }
     }
 }

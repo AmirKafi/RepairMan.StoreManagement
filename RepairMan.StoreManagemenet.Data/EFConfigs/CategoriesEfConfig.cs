@@ -14,6 +14,10 @@ namespace RepairMan.StoreManagement.Data.EFConfigs
         public void Configure(EntityTypeBuilder<Category> builder)
         {
 
+            builder.HasMany(s => s.PartCategories)
+                .WithOne(d => d.Category)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

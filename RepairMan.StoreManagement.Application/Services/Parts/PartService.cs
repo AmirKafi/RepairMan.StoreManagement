@@ -20,10 +20,12 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
 
         private readonly IPartRepository _repository;
         private readonly ICategoryRepository _categoryRepository;
-        public PartService(IPartRepository repository, ICategoryRepository categoryRepository)
+        private readonly IPartCategoryRepository _partCategoryRepository;
+        public PartService(IPartRepository repository, ICategoryRepository categoryRepository, IPartCategoryRepository partCategoryRepository)
         {
             _repository = repository;
             _categoryRepository = categoryRepository;
+            _partCategoryRepository = partCategoryRepository;
         }
 
         #endregion
@@ -33,7 +35,7 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
             var result = new ServiceResponse<List<PartListDto>>();
             try
             {
-                var data = await _repository.GetParts(dto.Brand,dto.Model,dto.offset, dto.limit);
+                var data = await _repository.GetParts(dto.Brand,dto.Model,dto.Category,dto.Availability,dto.offset, dto.limit);
 
                 result.SetData(data.ToDto());
             }
@@ -69,7 +71,6 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
             {
                 var part = await _repository.GetQuerable()
                                             .Include(x=> x.PartCategories)
-                                            .ThenInclude(x=> x.Category)
                                             .FirstOrDefaultAsync();
 
                 if (part is null)
@@ -90,17 +91,21 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
             var result = new ServiceResponse<bool>();
             try
             {
-                var part = await _repository.GetQuerable().AsNoTracking().Where(x=> x.Id == dto.Id).FirstOrDefaultAsync();
+                var part = await _repository.GetQuerable()
+                                            .Include(x=> x.PartCategories)
+                                            .Where(x=> x.Id == dto.Id).FirstOrDefaultAsync();
 
                 if (part is null)
                     result.SetException("قطعه مورد نظر یافت نشد!");
 
-                part.Update(dto.Brand,
-                            dto.Model,
-                            dto.Description,
-                            dto.QTY,
-                            dto.CategoriesId);
 
+                await _partCategoryRepository.Delete(part.PartCategories.ToList());
+
+                part.Update(dto.Brand,
+                    dto.Model,
+                    dto.Description,
+                    dto.QTY,
+                    dto.CategoriesId);
                 await _repository.Update(part);
 
                 result.SetData(true);
@@ -122,6 +127,34 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
                 await _repository.Delete(part);
 
                 result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> UsePart(int partId)
+        {
+            var result = new ServiceResponse<bool>();
+            try
+            {
+                var part = await _repository.GetQuerable().AsNoTracking().Where(x => x.Id == partId).FirstOrDefaultAsync();
+
+                if (part is null)
+                    result.SetException("قطعه مورد نظر یافت نشد!");
+
+                if(part.QTY == 0)
+                    result.SetException("عدم موجودی");
+                else
+                {
+                    part.UsePart();
+                    await _repository.Update(part);
+
+                    result.SetData(true);
+                }
             }
             catch (Exception ex)
             {

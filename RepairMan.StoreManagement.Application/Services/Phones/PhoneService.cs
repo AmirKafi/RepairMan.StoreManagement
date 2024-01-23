@@ -32,7 +32,7 @@ namespace RepairMan.StoreManagement.Application.Services.Phones
             var result = new ServiceResponse<List<PhoneListDto>>();
             try
             {
-                var data = await _repository.GetPhones(dto.Brand,dto.Model,dto.offset, dto.limit);
+                var data = await _repository.GetPhones(dto.Brand,dto.Model,dto.Availability,dto.offset, dto.limit);
 
                 result.SetData(data.ToDto());
             }
@@ -117,6 +117,34 @@ namespace RepairMan.StoreManagement.Application.Services.Phones
                 await _repository.Delete(phone);
 
                 result.SetData(true);
+            }
+            catch (Exception ex)
+            {
+                result.SetException(ex.Message);
+            }
+
+            return result;
+        }
+
+        public async Task<ServiceResponse<bool>> UsePhone(int phoneId)
+        {
+            var result = new ServiceResponse<bool>();
+            try
+            {
+                var phone = await _repository.GetQuerable().AsNoTracking().Where(x => x.Id == phoneId).FirstOrDefaultAsync();
+
+                if (phone is null)
+                    result.SetException("قطعه مورد نظر یافت نشد!");
+
+                if (phone.Qty == 0)
+                    result.SetException("عدم موجودی");
+                else
+                {
+                    phone.UsePhone();
+                    await _repository.Update(phone);
+
+                    result.SetData(true);
+                }
             }
             catch (Exception ex)
             {

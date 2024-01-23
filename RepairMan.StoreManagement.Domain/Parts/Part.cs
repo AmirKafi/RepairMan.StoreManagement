@@ -66,6 +66,13 @@ namespace RepairMan.StoreManagement.Domain.Parts
             return this;
         }
 
+        public Part UsePart()
+        {
+            this.QTY = this.QTY - 1;
+
+            return this;
+        }
+
         #endregion
     }
 }

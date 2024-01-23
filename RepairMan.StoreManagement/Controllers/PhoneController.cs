@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using RepairMan.StoreManagement.Application.Contract.Dto.Phones;
 using RepairMan.StoreManagement.Application.Contract.Interfaces.Categories;
 using RepairMan.StoreManagement.Application.Contract.Interfaces.Phones;
+using RepairMan.StoreManagement.Controllers.Base;
+using RepairMan.StoreManagement.Localization.Enums;
 using RepairMan.StoreManagement.Localization.Utility.ServiceResponse;
 
 namespace RepairMan.StoreManagement.Controllers
 {
-    public class PhoneController : Controller
+    public class PhoneController : BaseController
     {
         #region Constrcutor
         private readonly IPhoneService _phoneService;
@@ -25,6 +27,9 @@ namespace RepairMan.StoreManagement.Controllers
         public IActionResult Index()
         {
             ViewBag.ActivePage = "Phone";
+
+            ViewBag.Availabilities = EnumToList(typeof(AvailabilityEnum), null);
+            ((List<SelectListItem>)ViewBag.Availabilities).Insert(0, new SelectListItem(){Text = "همه"});
 
             return View();
         }
@@ -112,6 +117,15 @@ namespace RepairMan.StoreManagement.Controllers
             ViewBag.ActivePage = "Phone";
 
             var result = await _phoneService.Delete(ids[0]).ConfigureAwait(false);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        [Route("/Part/UsePhone")]
+        public async Task<ActionResult> UsePhone(int id)
+        {
+            var result = await _phoneService.UsePhone(id).ConfigureAwait(false);
 
             return Json(result);
         }
