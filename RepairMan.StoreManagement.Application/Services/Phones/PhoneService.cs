@@ -32,7 +32,7 @@ namespace RepairMan.StoreManagement.Application.Services.Phones
             var result = new ServiceResponse<List<PhoneListDto>>();
             try
             {
-                var data = await _repository.GetList(dto.offset, dto.limit);
+                var data = await _repository.GetPhones(dto.Brand,dto.Model,dto.offset, dto.limit);
 
                 result.SetData(data.ToDto());
             }
