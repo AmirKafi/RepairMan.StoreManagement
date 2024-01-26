@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 using RepairMan.StoreManagement.Domain.Categories;
+using RepairMan.StoreManagement.Domain.Expenses;
 using RepairMan.StoreManagement.Domain.Parts;
 using RepairMan.StoreManagement.Domain.Phones;
+using RepairMan.StoreManagement.Domain.Repairs;
 
 namespace RepairMan.StoreManagement.Data
 {
@@ -42,5 +44,7 @@ namespace RepairMan.StoreManagement.Data
         public DbSet<Part> Parts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Phone> Phones { get; set; }
+        public DbSet<Repair> Repairs { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
     }
 }

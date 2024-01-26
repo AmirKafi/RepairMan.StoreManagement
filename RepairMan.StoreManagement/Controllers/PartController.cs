@@ -87,7 +87,12 @@ namespace RepairMan.StoreManagement.Controllers
             }
 
             var categories = await _categoryService.GetAsCombo().ConfigureAwait(false);
-            ViewBag.Categories = ComboToSelectList(categories.Data);
+            ViewBag.Categories = categories.Data.Select(x => new SelectListItem()
+            {
+                Value = x.Value.ToString(),
+                Text = x.Title.ToString(),
+                Selected = Part.Data.CategoriesId.Contains((int)x.Value)
+            }).ToList();
 
             var model = Part.Data;
 

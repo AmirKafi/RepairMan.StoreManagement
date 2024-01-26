@@ -1,0 +1,46 @@
+﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Expenses.ExpenseUpdateDto
+@{
+    ViewBag.Title = "ویرایش هزینه";
+}
+<div class="expense-edit">
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" action="@Url.Action("Edit","Expense")">
+
+                <input asp-for="Id" hidden />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Title">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Title"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Cost" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control price" asp-for="Cost">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Cost"></span>
+                            <span class="text-info priceValue"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="PurchaseDateLocal" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control shamsi" asp-for="PurchaseDateLocal">
+                            <span class="field-validation-valid text-danger" asp-validation-for="PurchaseDateLocal"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="form-label"></label><b class="text-danger"></b>
+                            <textarea asp-for="Description" class="form-control ckeditor"></textarea>
+                            <span class="field-validation-valid text-danger" asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

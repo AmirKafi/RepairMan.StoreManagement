@@ -92,3 +92,58 @@ window.phonesAdditionalParams = function () {
 }
 
 //#endregion
+
+//#region Expense
+
+window.expensesAdditionalParams = function () {
+
+    return {
+        Title: $(".expense-list #Title").val(),
+        PurchaseDateLocal: $(".expense-list #PurchaseDateLocal").val()
+    };
+}
+
+//#endregion
+
+//#region Repair
+
+window.repairsAdditionalParams = function () {
+
+    return {
+        Brand: $(".repair-list #Brand").val(),
+        Model: $(".repair-list #Model").val(),
+        RepairDateLocal: $(".repair-list #RepairDateLocal").val()
+    };
+}
+
+$(document).on("keyup", "input[type=text].repairPrice", function () {
+    var value = parseInt($(this).val());
+
+    $(".repairPriceValue").html((value / 10).toFixed(0).num2persian() + " " + "تومان");
+});
+
+$(document).on("keyup", "input[type=text].storePrice", function () {
+    var value = parseInt($(this).val());
+
+    $(".storePriceValue").html((value / 10).toFixed(0).num2persian() + " " + "تومان");
+});
+
+$(document).on("keyup", "#RepairCost," + "#StoreShareCost", function () {
+    var repairPrice = $("#RepairCost");
+    var storePrice = $("#StoreShareCost");
+    var totalCost = $("#TotalCost");
+
+    var repairPriceValue = $(".repairCostValue");
+    var storePriceValue = $(".storeCostValue");
+    var totalCostValue = $(".totalCostValue");
+
+
+
+    repairPriceValue.html((parseInt(repairPrice.val()) / 10).toFixed(0).num2persian() + " " + "تومان");
+    storePriceValue.html((parseInt(storePrice.val()) / 10).toFixed(0).num2persian() + " " + "تومان");
+
+    totalCost.val(parseInt(repairPrice.val()) + parseInt(storePrice.val()));
+    totalCostValue.html((parseInt(totalCost.val()) / 10).toFixed(0).num2persian() + " " + "تومان");
+});
+
+//#endregion 

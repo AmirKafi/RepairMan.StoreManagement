@@ -374,7 +374,7 @@ namespace RepairMan.StoreManagement.Localization.Utility.Extentions.Datetime
         /// <param name="format">d(date short),D t(time short),T f(full),F 
         /// - g,G , m,M y,Y and finally B (1393/07/18)</param>
         /// <returns></returns>
-        public static string ToFa(this DateTime dateTime, string format = "B")
+        public static string ToFa(this DateTime dateTime, string format = "D")
         {
             var sd = ToShamsiDate(dateTime);
 

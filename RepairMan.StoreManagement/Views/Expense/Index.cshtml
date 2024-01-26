@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "لیست هزینه ها";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="expense-list">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="toolbar">
+                            <a href="javascript:void(0)" data-url="@Url.Action("Create", "Expense")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItem"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+                            <a href="javascript:void(0)" data-url="@Url.Action("Edit", "Expense")" class="btn btn-outline-warning m-1 editItem"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
+                            <a href="javascript:void(0)" data-url="@Url.Action("Delete", "Expense")" class="btn btn-outline-danger m-1 deleteItem"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+                            <a href="javascript:void(0)" data-url="" class="btn btn-outline-dark m-1 refresh"><span class="glyphicon glyphicon-refresh"></span> بروزرسانی</a>
+                        </div>
+                        <div class="row filter-row">
+                            <div class="col-sm-4">
+                                <div class="form-group marginless">
+                                    <input type="text" id="Title" class="form-control rtlrt " maxlength="50" placeholder="عنوان هزینه" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group marginless">
+                                    <input type="text" id="RepairDateLocal" class="form-control rtlrt shamsi" maxlength="50" placeholder="تاریخ" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table text-nowrap mb-0 align-middle"
+                               data-toolbar="#toolbar"
+                               data-toggle="table"
+                               data-striped="true"
+                               data-show-refresh="false"
+                               data-id-field="id"
+                               data-height="420"
+                               data-click-to-select="true"
+                               data-side-pagination="server"
+                               data-pagination="true"
+                               data-buttons-align="right"
+                               data-single-select="true"
+                               data-toolbar-align="right"
+                               data-additional-params="window.expensesAdditionalParams"
+                               data-ajax="window.ajaxRequest"
+                               data-response-handler="window.responseHandler"
+                               data-url="@Url.Action("LoadExpenses", "Expense")">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-width="1" data-checkbox="true" data-halign="center" data-align="center"></th>
+                                    <th data-field="rowNumber" data-width="1">ردیف</th>
+                                    <th data-field="title" data-width="1000">عنوان هزینه</th>
+                                    <th data-field="cost" data-width="1000" data-formatter="window.separateThreeDigit">هزینه(ريال)</th>
+                                    <th data-field="description" data-width="1000">توضیحات</th>
+                                    <th data-field="purchaseDateFa" data-width="1000">تاریخ</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Repairs.RepairUpdateDto
+@{
+    ViewBag.Title = "ویرایش تعمیر";
+}
+<div class="repair-create">
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" action="@Url.Action("Edit","Repair")">
+
+                <input asp-for="Id" hidden />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Brand" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Brand">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Brand"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Model" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Model">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Model"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="RepairCost" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control repairPrice" asp-for="RepairCost">
+                            <span class="field-validation-valid text-danger" asp-validation-for="RepairCost"></span>
+                            <span class="text-info repairCostValue"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="StoreShareCost" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="StoreShareCost">
+                            <span class="field-validation-valid text-danger" asp-validation-for="StoreShareCost"></span>
+                            <span class="text-info storeCostValue"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="TotalCost" class="form-label"></label><b class="text-danger"></b>
+                            <input type="text" class="form-control" readonly asp-for="TotalCost">
+                            <span class="field-validation-valid text-danger" asp-validation-for="TotalCost"></span>
+                            <span class="text-info totalCostValue"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="RepairDateLocal" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control shamsi" asp-for="RepairDateLocal">
+                            <span class="field-validation-valid text-danger" asp-validation-for="RepairDateLocal"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="form-label"></label><b class="text-danger"></b>
+                            <textarea asp-for="Description" class="form-control ckeditor"></textarea>
+                            <span class="field-validation-valid text-danger" asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

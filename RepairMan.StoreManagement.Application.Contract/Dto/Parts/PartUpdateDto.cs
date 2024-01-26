@@ -24,4 +24,6 @@ public class PartUpdateDto
     [Display(Name = "دسته بندی")]
     [Required(ErrorMessage = "این فیلد اجباری می باشد")]
     public List<int> CategoriesId { get; set; }
+
+    public string Categories => string.Join(',', CategoriesId.ToList());
 }

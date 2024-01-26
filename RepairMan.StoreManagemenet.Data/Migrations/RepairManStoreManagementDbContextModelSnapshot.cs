@@ -42,6 +42,35 @@ namespace RepairMan.StoreManagement.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("RepairMan.StoreManagement.Domain.Expenses.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<long>("Cost")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Expenses");
+                });
+
             modelBuilder.Entity("RepairMan.StoreManagement.Domain.Parts.Part", b =>
                 {
                     b.Property<int>("Id")
@@ -131,6 +160,42 @@ namespace RepairMan.StoreManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phones");
+                });
+
+            modelBuilder.Entity("RepairMan.StoreManagement.Domain.Repairs.Repair", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("RepairCost")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("RepairDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StoreShareCost")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Repairs");
                 });
 
             modelBuilder.Entity("RepairMan.StoreManagement.Domain.Parts.PartCategory", b =>

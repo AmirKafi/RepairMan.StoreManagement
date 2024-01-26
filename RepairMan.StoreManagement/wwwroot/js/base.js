@@ -41,7 +41,9 @@ window.bootbox = function (size) {
 };
 
 $(document).on("keyup", "input[type=text].price", function () {
-    $(this).val(window.separateThreeDigit($(this).val()));
+    var value = parseInt($(this).val());
+
+    $(".priceValue").html((value / 10).toFixed(0).num2persian() + " " + "تومان");
 });
 
 window.separateThreeDigit = function (value) {
@@ -49,6 +51,7 @@ window.separateThreeDigit = function (value) {
         return null;
     if (value === 0)
         return 0;
+
 
     return parseFloat(value).toFixed(0).toString()
         .replace(/\D/g, "")
@@ -97,10 +100,6 @@ window.inputmasks = function () {
         regex: "[0-9]*"
     });
 
-    $(".price").inputmask("Regex", {
-        regex: "[0-9-,]*",
-        scale: 3
-    });
 
     $(".captchaField").inputmask("Regex", {
         regex: "[0-9]*"

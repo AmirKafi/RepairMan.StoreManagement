@@ -42,6 +42,27 @@
                         <span class="hide-menu">دسته بندی قطعات</span>
                     </a>
                 </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">مدیریت</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Expense" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Expense.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">هزینه</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Repair" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Repair.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">تعمیرات</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
