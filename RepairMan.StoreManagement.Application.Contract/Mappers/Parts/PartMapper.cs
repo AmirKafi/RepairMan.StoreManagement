@@ -32,7 +32,7 @@ namespace RepairMan.StoreManagement.Application.Contract.Mappers.Parts
                 QTY = x.QTY,
                 CategoriesTitle = string.Join(',',x.PartCategories.Select(c => c.Category.Title).ToList()).ToString(),
                 CreatedOn = x.CreatedOn,
-                CategoriesId = x.PartCategories.Select(c=> c.Id).ToList()
+                CategoriesId = x.PartCategories.Select(c=> c.CategoryId).ToList()
             }).ToList();
         }
 
@@ -45,7 +45,7 @@ namespace RepairMan.StoreManagement.Application.Contract.Mappers.Parts
                 Model = model.Model,
                 Description = model.Description,
                 QTY = model.QTY,
-                CategoriesId = model.PartCategories.Select(c => c.Id).ToList()
+                CategoriesId = model.PartCategories.Select(c => c.CategoryId).ToList()
             };
         }
     }

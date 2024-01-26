@@ -71,6 +71,8 @@ namespace RepairMan.StoreManagement.Application.Services.Parts
             {
                 var part = await _repository.GetQuerable()
                                             .Include(x=> x.PartCategories)
+                                            .ThenInclude(x=> x.Category)
+                                            .Where(x=> x.Id == partId)
                                             .FirstOrDefaultAsync();
 
                 if (part is null)
