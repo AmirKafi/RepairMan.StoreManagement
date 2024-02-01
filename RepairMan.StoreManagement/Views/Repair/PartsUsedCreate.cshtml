@@ -1,0 +1,39 @@
+﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Repairs.PartsUsed.PartsUsedCreateDto
+@{
+    ViewBag.Title = "ثبت قطعه";
+}
+<div class="partsUsed-create">
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" action="@Url.Action("Create","PartsUsed")">
+
+                <input asp-for="RepairId" hidden />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Title">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Title"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Cost" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control price" asp-for="Cost">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Cost"></span>
+                            <span class="text-info priceValue"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="form-label"></label><b class="text-danger">*</b>
+                            <select asp-for="CategoryId" class="form-control selectpicker" asp-items="ViewBag.Categories"></select>
+                            <span class="field-validation-valid text-danger" asp-validation-for="CategoryId"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

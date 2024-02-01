@@ -29,5 +29,13 @@ namespace RepairMan.StoreManagement.Data.Repository.Repairs
                 .OrderByDescending(t => t.Id)
                 .ToListAsync();
         }
+        public async Task<Repair> Add(Repair entity)
+        {
+            var res = await _dbContext.Repairs.AddAsync(entity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return res.Entity;
+        }
     }
 }

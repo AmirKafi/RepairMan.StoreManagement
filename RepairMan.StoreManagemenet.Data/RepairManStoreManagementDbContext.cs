@@ -45,6 +45,7 @@ namespace RepairMan.StoreManagement.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Repair> Repairs { get; set; }
+        public DbSet<PartsUsed> PartsUsed { get; set; }
         public DbSet<Expense> Expenses { get; set; }
     }
 }

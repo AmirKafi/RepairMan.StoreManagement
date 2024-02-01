@@ -33,6 +33,12 @@ manuallyDestroyToastr = function (tapToDismiss) {
     return toastr.options.extendedTimeOut = "0";
 };
 
+
+var persianCalendar = $.calendars.instance('persian', 'fa');
+$(".shamsi").calendarsPicker({
+    calendar: persianCalendar
+}, $.calendarsPicker.regionalOptions['fa']);
+
 window.bootbox = function (size) {
     bootbox.setDefaults({
         locale: "fa",

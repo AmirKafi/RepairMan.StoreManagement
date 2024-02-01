@@ -1,0 +1,35 @@
+﻿<div class="partsUsed-list">
+    <div id="toolbar2">
+        <a href="javascript:void(0)" data-url="@Url.Action("Create", "PartsUsed")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItem2"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+        <a href="javascript:void(0)" data-url="@Url.Action("Edit", "PartsUsed")" class="btn btn-outline-warning m-1 editItem2"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
+        <a href="javascript:void(0)" data-url="@Url.Action("Delete", "PartsUsed")" class="btn btn-outline-danger m-1 deleteItem2"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+        <a href="javascript:void(0)" data-url="" class="btn btn-outline-dark m-1 refresh2"><span class="glyphicon glyphicon-refresh"></span> بروزرسانی</a>
+    </div>
+    <table data-toolbar="#toolbar2"
+           data-toggle="table2"
+           data-striped="true"
+           data-show-refresh="false"
+           data-id-field="id"
+           data-height="500"
+           data-click-to-select="true"
+           data-side-pagination="server"
+           data-pagination="true"
+           data-buttons-align="right"
+           data-single-select="true"
+           data-toolbar-align="right"
+           data-additional-params="window.partsUsedAdditionalParams"
+           data-ajax="window.ajaxRequest2"
+           data-response-handler="window.responseHandler2"
+           data-url="@Url.Action("LoadPartsUsed", "PartsUsed")">
+        <thead>
+            <tr>
+                <th data-field="state" data-width="1" data-checkbox="true" data-halign="center" data-align="center"></th>
+                <th data-field="rowNumber" data-width="60">رديف</th>
+                <th data-field="title">عنوان</th>
+                <th data-field="cost" data-formatter="window.separateThreeDigit">مبلغ</th>
+                <th data-field="categoryTitle">نوع قطعه</th>
+                <th data-field="createdOnFa">تاریخ ثبت</th>
+            </tr>
+        </thead>
+    </table>
+</div>

@@ -146,4 +146,31 @@ $(document).on("keyup", "#RepairCost," + "#StoreShareCost", function () {
     totalCostValue.html((parseInt(totalCost.val()) / 10).toFixed(0).num2persian() + " " + "تومان");
 });
 
-//#endregion 
+//#endregion
+
+//#region PartsUsed
+
+window.partsUsedToggleTab = function () {
+    var repairId;
+
+    repairId = parseInt($(".repair-create #Id").val());
+
+    if (repairId > 0) {
+        $(".repair-create #tabPartsUsed").attr("data-toggle", "tab");
+        $(".repair-create .tab-partsUsed").removeClass("disabled");
+    } else {
+        $(".repair-create #tabPartsUsed").attr("data-toggle", "");
+        $(".repair-create .tab-partsUsed").addClass("disabled");
+    }
+};
+
+window.partsUsedAdditionalParams = function () {
+
+    return {
+        RepairId: $(".repair-create #Id").val()
+    };
+}
+
+
+
+//#endregion

@@ -25,6 +25,7 @@ namespace RepairMan.StoreManagement.Application.Contract.Dto.Repairs
         [Required(ErrorMessage = "این فیلد اجباری می باشد")]
         public Int64 StoreShareCost { get; set; }
 
+        [Display(Name = "مبلغ کل")]
         public Int64 TotalCost { get; set; }
 
 

@@ -1,23 +1,24 @@
-﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Expenses.ExpenseUpdateDto
+﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Repairs.PartsUsed.PartsUsedUpdateDto
 @{
-    ViewBag.Title = "ویرایش هزینه";
+    ViewBag.Title = "ویرایش قطعه";
 }
-<div class="expense-edit">
+<div class="partsUsed-edit">
     <div class="card">
         <div class="card-body">
-            <form autocomplete="off" action="@Url.Action("Edit","Expense")">
+            <form autocomplete="off" action="@Url.Action("Edit","PartsUsed")">
 
                 <input asp-for="Id" hidden />
+                <input asp-for="RepairId" hidden />
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Title" class="form-label"></label><b class="text-danger">*</b>
                             <input type="text" class="form-control" asp-for="Title">
                             <span class="field-validation-valid text-danger" asp-validation-for="Title"></span>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Cost" class="form-label"></label><b class="text-danger">*</b>
                             <input type="text" class="form-control price" asp-for="Cost">
@@ -25,18 +26,11 @@
                             <span class="text-info priceValue"></span>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label asp-for="PurchaseDateLocal" class="form-label"></label><b class="text-danger">*</b>
-                            <input type="text" class="form-control shamsi" asp-for="PurchaseDateLocal">
-                            <span class="field-validation-valid text-danger" asp-validation-for="PurchaseDateLocal"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Description" class="form-label"></label><b class="text-danger"></b>
-                            <textarea asp-for="Description" class="form-control ckeditor"></textarea>
-                            <span class="field-validation-valid text-danger" asp-validation-for="Description"></span>
+                            <label asp-for="CategoryId" class="form-label"></label><b class="text-danger">*</b>
+                            <select asp-for="CategoryId" class="form-control selectpicker" asp-items="ViewBag.Categories"></select>
+                            <span class="field-validation-valid text-danger" asp-validation-for="CategoryId"></span>
                         </div>
                     </div>
                 </div>

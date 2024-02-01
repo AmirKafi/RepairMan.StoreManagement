@@ -2,21 +2,6 @@
 
 //#region Recourse
 
-window.execFunc = function () {
-    var args, context, func, i, name, namespace, namespaces, _i, _len;
-    name = arguments[0], context = arguments[1], args = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
-    if ((name != null ? name.length : void 0) === 0) {
-        return void 0;
-    }
-    namespaces = name.split(".");
-    func = namespaces.pop();
-    for (i = _i = 0, _len = namespaces.length; _i < _len; i = ++_i) {
-        namespace = namespaces[i];
-        context = context[namespace];
-    }
-    return context[func].apply(context, args);
-};
-
 resource = {
     message: {
         success: "ذخیره با موفقیت انجام شد",
@@ -71,15 +56,15 @@ resource = {
 
 //#endregion
 
-var $table = $('table[data-toggle=table]');
+window.$table2 = $('table[data-toggle=table2]');
 
 window.editor;
 
 selections = [];
 
-window.responseHandler = function (res) {
+window.responseHandler2 = function (res) {
     var idField, pageNumber, pageSize, tableOptions;
-    tableOptions = window.$table.bootstrapTable('getOptions');
+    tableOptions = $('table[data-toggle=table2]').bootstrapTable('getOptions');
     idField = tableOptions.idField;
     pageNumber = tableOptions.pageNumber - 1;
     pageSize = tableOptions.pageSize;
@@ -90,20 +75,20 @@ window.responseHandler = function (res) {
     return res;
 };
 
-window.ajaxRequest = function (params) {
+window.ajaxRequest2 = function (params) {
     var additionalParams;
     params.type = "post";
     params.data.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
-    params.url = $table.data("url");
+    params.url = $('table[data-toggle=table2]').data("url");
     params.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-    additionalParams = $table.data("additionalParams");
-
+    additionalParams = $('table[data-toggle=table2]').data("additionalParams");
     if (additionalParams != null) {
         params.data = $.extend({}, window.execFunc(additionalParams, window), params.data);
     }
     setTimeout(function () {
         $.ajax(params).done(function (data, textStatus, jqXHR) {
             var objects, _ref;
+
             if (data.resultStatus !== 1 && data.resultStatus !== -2) {
                 toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
                 return;
@@ -113,7 +98,7 @@ window.ajaxRequest = function (params) {
                 total: data.total,
                 rows: data.data
             };
-            $table.bootstrapTable('load', objects);
+            $('table[data-toggle=table2]').bootstrapTable('load', objects);
         }).fail(function (msg) {
             toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
         }).always(function () { });
@@ -121,17 +106,18 @@ window.ajaxRequest = function (params) {
 };
 
 
-window.getIdSelections = function () {
+window.getIdSelections2 = function () {
     var idField, tableOptions;
-    tableOptions = $table.bootstrapTable('getOptions');
+    tableOptions = $('table[data-toggle=table2]').bootstrapTable('getOptions');
     idField = tableOptions.idField;
-    return $.map($table.bootstrapTable('getSelections'), function (row) {
+    console.log(idField);
+    return $.map($('table[data-toggle=table2]').bootstrapTable('getSelections'), function (row) {
 
         return row[idField];
     });
 };
 
-$(document).on("click", ".btn.createItem[data-url]", function (e) {
+$(document).on("click", ".btn.createItem2[data-url]", function (e) {
     var $createItem, additionalParams, content, params, url, _ref;
     e.preventDefault();
     $createItem = $(this);
@@ -142,12 +128,20 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
     });
 
     content = "";
+
     $createItem.tooltip("hide");
     url = $createItem.data("url");
+    additionalParams = $('table[data-toggle=table2]').data("additionalParams");
+    if (additionalParams != null) {
+        params = $.extend({}, window.execFunc(additionalParams, window), params);
+    }
+
+    console.log(params);
     $.ajax({
         url: url,
         type: "GET",
-        cache: false
+        cache: false,
+        data:params
     }).done(function (data, textStatus, jqXHR) {
 
         var _ref1;
@@ -177,7 +171,7 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                     $btnSave = $(e);
                     var editor = window.editor;
                     if (editor != undefined)
-                        $(".ckeditor").val(editor.getData());
+                        $(".ckeditor2").val(editor.getData());
 
 
                     form = $btnSave.parent().prev().find("form");
@@ -199,7 +193,7 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                             }
                             toastr["success"](resource.message.saveSuccess);
                             $createItem.data("dialog").hide($createItem.data("dialogId"));
-                            $table.bootstrapTable("refresh", {
+                            $('table[data-toggle=table2]').bootstrapTable("refresh", {
                                 silent: true,
                                 pageNumber: 1
                             });
@@ -228,7 +222,7 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
                     window.inputmasks();
 
                     ClassicEditor
-                        .create(document.querySelector('.ckeditor'), {
+                        .create(document.querySelector('.ckeditor2'), {
                             language: 'fa',
                         })
                         .then(editor => {
@@ -337,11 +331,11 @@ $(document).on("click", ".btn.createItem[data-url]", function (e) {
     return false;
 });
 
-$(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
+$(document).on("click", "#toolbar2 .btn.editItem2[data-url]", function (e) {
     var $editItem, content, ids, params, url, _ref;
     e.preventDefault();
     $editItem = $(this);
-    ids = window.getIdSelections();
+    ids = window.getIdSelections2();
     autoDestroyToastr();
     if ((ids != null ? ids.length : void 0) === 0) {
         toastr["warning"](resource.message.notSelected);
@@ -388,7 +382,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
 
                     var editor = window.editor;
                     if (editor != undefined)
-                        $(".ckeditor").val(editor.getData());
+                        $(".ckeditor2").val(editor.getData());
 
                     if (form.valid()) {
                         $btnSave.prop("disabled", true);
@@ -408,7 +402,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                             }
                             toastr["success"](resource.message.saveSuccess);
                             $editItem.data("dialog").hide($editItem.data("dialogId"));
-                            $table.bootstrapTable("refresh", {
+                            $('table[data-toggle=table2]').bootstrapTable("refresh", {
                                 silent: true,
                                 pageNumber: 1
                             });
@@ -437,7 +431,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
                     window.inputmasks();
 
                     ClassicEditor
-                        .create(document.querySelector('.ckeditor'), {
+                        .create(document.querySelector('.ckeditor2'), {
                             language: 'fa',
                         })
                         .then(editor => {
@@ -449,7 +443,7 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
 
                     var editor = window.editor;
                     if (editor != undefined)
-                        editor.setData($(".ckeditor").val());
+                        editor.setData($(".ckeditor2").val());
 
                     $(".dialog-body select").selectpicker({
                         container: "body"
@@ -560,10 +554,10 @@ $(document).on("click", "#toolbar .btn.editItem[data-url]", function (e) {
 });
 
 
-$(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
+$(document).on("click", "#toolbar2 .btn.deleteItem2[data-url]", function () {
     var $removeItem, deleteDialog, ids;
     $removeItem = $(this);
-    ids = window.getIdSelections();
+    ids = window.getIdSelections2();
     autoDestroyToastr();
     if ((ids != null ? ids.length : void 0) === 0) {
         toastr["warning"](resource.message.notSelected);
@@ -601,14 +595,14 @@ $(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
                         return;
                     }
                     toastr["success"](resource.message.deleteSuccess);
-                    tableOptions = $table.bootstrapTable('getOptions');
+                    tableOptions = $('table[data-toggle=table2]').bootstrapTable('getOptions');
                     idField = tableOptions.idField;
                     $removeItem.data("dialog").hide($removeItem.data("dialogId"));
-                    $table.bootstrapTable('remove', {
+                    $('table[data-toggle=table2]').bootstrapTable('remove', {
                         field: idField,
                         values: ids
                     });
-                    $table.bootstrapTable('refresh', {
+                    $('table[data-toggle=table2]').bootstrapTable('refresh', {
                         silent: true,
                         pageNumber: 1
                     });
@@ -619,149 +613,6 @@ $(document).on("click", "#toolbar .btn.deleteItem[data-url]", function () {
             }
         });
     }, 700);
-    return false;
-});
-
-
-$(document).on("click", ".btn.createItemCustom[data-url]", function (e) {
-    var $createItem, additionalParams, content, params, url, _ref, toggleId, toggleFunc, formData;
-    e.preventDefault();
-    $createItem = $(this);
-    $.fn.dialog.defaults = $.extend({}, $.fn.dialog.defaults, {
-        saveBtnLabel: resource.dialog.save,
-        cancelBtnLabel: resource.dialog.cancel,
-        closeLabel: resource.dialog.close
-    });
-    content = "";
-    $createItem.tooltip("hide");
-    url = $createItem.data("url");
-    toggleId = $createItem.data("toggleId");
-    toggleFunc = $createItem.data("toggleFunc");
-    additionalParams = $table.data("additionalParams");
-    console.log(additionalParams);
-    if (additionalParams != null) {
-        params = $.extend({}, window.execFunc(additionalParams, window), params);
-    }
-    $.ajax({
-        url: url,
-        type: "GET",
-        cache: false
-    }).done(function (data, textStatus, jqXHR) {
-        var _ref1;
-        if ((data != null ? data.length : void 0) === 0) {
-            toastr["error"]((_ref1 = data.message) != null ? _ref1 : resource.exception.addError);
-            return;
-        }
-        content = data;
-    }).fail(function (msg) {
-        content = msg.status === 403 ? "Forbidden" : "Error";
-    }).always(function () {
-        if (content === "Error") {
-            toastr["error"](resource.exception.addError);
-            return;
-        }
-        if (content === "Forbidden") {
-            toastr["error"](resource.exception.addForbidden);
-            return;
-        }
-        setTimeout(function () {
-            var name, title, _ref1, _ref2, imageFiles;
-            if ($createItem.hasClass("btn-shortcut")) {
-                title = "افزودن " + $createItem.closest(".form-group").find("label.control-label").text();
-            } else {
-                name = new Date().getTime();
-                title = $("<div class='t" + name + "'/>").html($createItem.html());
-                $("body").append(title);
-                $(".t" + name + " .material-icons, .t" + name + " .glyphicon").remove();
-                title = title.text().trim() + " " + window.document.title.replace("لیست ", "");
-                $(".t" + name).remove();
-            }
-            $createItem.dialog({
-                title: (_ref1 = $createItem.data("dialogTitle")) != null && _ref1 != "undefined" ? _ref1 : title,
-                mode: (_ref2 = $createItem.data("dialogMode")) != null ? _ref2 : "large",
-                destroyAfterClose: true,
-                content: content,
-                onSaveClick: function (e) {
-                    var $btnSave, form, toggleTab;
-                    $btnSave = $(e);
-                    form = $btnSave.parent().prev().find("form");
-                    formData = new FormData(form.get(0));
-                    if (form.valid()) {
-                        $.ajax({
-                            url: form.attr("action"),
-                            method: "POST",
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            cache: false
-                        }).done(function (data, textStatus, jqXHR) {
-                            var _ref3;
-                            autoDestroyToastr();
-                            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
-                                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
-                                return;
-                            }
-                            toastr["success"](resource.message.saveSuccess);
-                            $btnSave.prop("disabled", true);
-                            console.log(data);
-                            $("" + toggleId + "").val(data.data);
-                            var x = toggleFunc;
-                            toggleTab = window[x];
-                            toggleTab();
-
-                            $('table[data-toggle=table]').bootstrapTable("refresh", {
-                                silent: true,
-                                pageNumber: 1
-                            });
-                            $('table[data-toggle=table3]').bootstrapTable("refresh", {
-                                silent: true,
-                                pageNumber: 1
-                            });
-
-                            $('table[data-toggle=table4]').bootstrapTable("refresh", {
-                                silent: true,
-                                pageNumber: 1
-                            });
-                        }).fail(function (msg) {
-                            $btnSave.prop("disabled", false);
-                            autoDestroyToastr();
-                            content = msg.status === 403 ? msg.statusText : "Error";
-                            if (content === "Error") {
-                                toastr["error"](resource.exception.addError);
-                                return;
-                            }
-                            if (content === "Forbidden") {
-                                toastr["error"](resource.exception.addForbidden);
-                                return;
-                            }
-                        }).always(function () {
-                            manuallyDestroyToastr();
-                        });
-                    } else {
-                        window.gotoErrorModal();
-                    }
-                },
-                onBeforeOpen: function () {
-                    var persianCalendar;
-                    $('form').validateBootstrap(true);
-                    window.inputmasks();
-                    $(".dialog-body select").selectpicker({
-                        container: "body"
-                    });
-                    persianCalendar = $.calendars.instance('persian', 'fa');
-                    $(".shamsi").calendarsPicker({
-                        calendar: persianCalendar
-                    }, $.calendarsPicker.regionalOptions['fa']);
-
-                    $('table[data-toggle=table2]').bootstrapTable();
-                    $('table[data-toggle=table3]').bootstrapTable();
-                    $('table[data-toggle=table4]').bootstrapTable();
-                    $('table[data-toggle=table5]').bootstrapTable();
-                    $('table[data-toggle=table6]').bootstrapTable();
-                }
-            });
-        }, 700);
-    });
     return false;
 });
 
@@ -807,7 +658,7 @@ $(document).on("click", ".btn.btn-save", function () {
     }
 });
 
-$(document).on("click", ".modalRaw[data-url]", function (e) {
+$(document).on("click", ".modalRaw2[data-url]", function (e) {
     var $this, additionalParams, content, params, url, _ref;
     e.preventDefault();
     $this = $(this);
@@ -862,8 +713,8 @@ $(document).on("click", ".modalRaw[data-url]", function (e) {
     return false;
 });
 
-$(document).on("click", ".refresh", function (e) {
-    $table.bootstrapTable("refresh", {
+$(document).on("click", ".refresh2", function (e) {
+    $('table[data-toggle=table2]').bootstrapTable("refresh", {
         silent: true,
         pageNumber: 1
     });

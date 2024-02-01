@@ -37,14 +37,14 @@ namespace RepairMan.StoreManagement.Application.Services.Repairs
             return result;
         }
 
-        public async Task<ServiceResponse<bool>> AddRepair(RepairCreateDto dto)
+        public async Task<ServiceResponse<int>> AddRepair(RepairCreateDto dto)
         {
-            var result = new ServiceResponse<bool>();
+            var result = new ServiceResponse<int>();
             try
             {
                 var model = dto.ToModel();
-                await _repository.Add(model);
-                result.SetData(true);
+                var res  = await _repository.Add(model);
+                result.SetData(res.Id);
             }
             catch (Exception ex)
             {

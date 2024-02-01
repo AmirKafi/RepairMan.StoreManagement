@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div id="toolbar">
-                            <a href="javascript:void(0)" data-url="@Url.Action("Create", "Repair")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItem"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+                            <a href="javascript:void(0)" data-url="@Url.Action("Create", "Repair")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItemCustom" data-toggle-func="partsUsedToggleTab" data-toggle-id=".repair-create #Id"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
                             <a href="javascript:void(0)" data-url="@Url.Action("Edit", "Repair")" class="btn btn-outline-warning m-1 editItem"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
                             <a href="javascript:void(0)" data-url="@Url.Action("Delete", "Repair")" class="btn btn-outline-danger m-1 deleteItem"><span class="glyphicon glyphicon-remove"></span> حذف</a>
                             <a href="javascript:void(0)" data-url="" class="btn btn-outline-dark m-1 refresh"><span class="glyphicon glyphicon-refresh"></span> بروزرسانی</a>
@@ -56,6 +56,7 @@
                                     <th data-field="rowNumber" data-width="1">ردیف</th>
                                     <th data-field="brand" data-width="1000">برند</th>
                                     <th data-field="model" data-width="1000">مدل</th>
+                                    <th data-field="partsUsedCost" data-width="1000" data-formatter="window.separateThreeDigit">هزینه قطعات (ريال)</th>
                                     <th data-field="repairCost" data-width="1000" data-formatter="window.separateThreeDigit">هزینه تعمیر (ريال)</th>
                                     <th data-field="storeShareCost" data-width="1000" data-formatter="window.separateThreeDigit">سهم فروشگاه (ريال)</th>
                                     <th data-field="totalCost" data-width="1000" data-formatter="window.separateThreeDigit">مبلغ کل (ريال)</th>

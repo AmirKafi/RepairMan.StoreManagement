@@ -11,7 +11,7 @@ namespace RepairMan.StoreManagement.Application.Contract.Interfaces.Repairs
     public interface IRepairService
     {
         Task<ServiceResponse<List<RepairListDto>>> LoadRepairs(RepairDto dto);
-        Task<ServiceResponse<bool>> AddRepair(RepairCreateDto dto);
+        Task<ServiceResponse<int>> AddRepair(RepairCreateDto dto);
         Task<ServiceResponse<RepairUpdateDto>> GetRepair(int repairId);
         Task<ServiceResponse<bool>> UpdateRepair(RepairUpdateDto dto);
         Task<ServiceResponse<bool>> Delete(int repairId);
