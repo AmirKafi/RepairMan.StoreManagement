@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RepairMan.StoreManagement.Domain.Parts;
+using RepairMan.StoreManagement.Domain.Repairs;
 using RepairMan.StoreManagement.Localization;
 
 namespace RepairMan.StoreManagement.Domain.Categories
@@ -23,5 +24,6 @@ namespace RepairMan.StoreManagement.Domain.Categories
 
 
         public virtual ICollection<PartCategory> PartCategories { get; set; }
+        public virtual ICollection<PartsUsed> PartsUsed { get; private set; }
     }
 }

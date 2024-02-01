@@ -172,5 +172,43 @@ window.partsUsedAdditionalParams = function () {
 }
 
 
+window.partsUsedAjaxRequest = function (params) {
+    var additionalParams;
+    params.type = "post";
+    params.data.__RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+    params.url = $('table[data-toggle=table2]').data("url");
+    params.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
+    additionalParams = $('table[data-toggle=table2]').data("additionalParams");
+    if (additionalParams != null) {
+        params.data = $.extend({}, window.execFunc(additionalParams, window), params.data);
+    }
+    setTimeout(function () {
+        $.ajax(params).done(function (data, textStatus, jqXHR) {
+            var objects, _ref;
+
+            if (data.resultStatus !== 1 && data.resultStatus !== -2) {
+                toastr["error"]((_ref3 = data.message) != null ? _ref3 : resource.exception.saveError);
+                return;
+            }
+
+            objects = {
+                total: data.total,
+                rows: data.data
+            };
+
+            const sum = data.data.reduce((accumulator, object) => {
+                return accumulator + object.cost;
+            }, 0);
+
+            $(".partsUsed-list #TotalCost").val(window.separateThreeDigit(sum / 10));
+            console.clear();
+            console.log(sum);
+            console.log(data.data);
+            $('table[data-toggle=table2]').bootstrapTable('load', objects);
+        }).fail(function (msg) {
+            toastr["error"](msg.status === 403 ? resource.exception.forbidden : resource.exception.serverError);
+        }).always(function () { });
+    }, 313);
+};
 
 //#endregion

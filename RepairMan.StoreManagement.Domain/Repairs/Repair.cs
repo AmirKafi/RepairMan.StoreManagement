@@ -42,6 +42,8 @@ namespace RepairMan.StoreManagement.Domain.Repairs
         public Int64 StoreShareCost { get; set; }
         public Int64 TotalCost => RepairCost + StoreShareCost;
 
+        public virtual ICollection<PartsUsed> PartsUsed { get;private set; }
+
         #endregion
 
         #region Methods

@@ -22,6 +22,7 @@ namespace RepairMan.StoreManagement.Data.Repository.Repairs
                 (model == null || a.Model.Contains(model));
 
             return await _dbContext.Repairs
+                .Include(x=> x.PartsUsed)
                 .Where(preFilter)
                 .Skip(take * skip)
                 .Take(take)

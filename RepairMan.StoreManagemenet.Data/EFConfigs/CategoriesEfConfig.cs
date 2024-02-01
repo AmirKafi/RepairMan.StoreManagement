@@ -18,6 +18,12 @@ namespace RepairMan.StoreManagement.Data.EFConfigs
                 .WithOne(d => d.Category)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+            builder.HasMany(x => x.PartsUsed)
+                   .WithOne(x => x.Category)
+                   .HasForeignKey(x => x.CategoryId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

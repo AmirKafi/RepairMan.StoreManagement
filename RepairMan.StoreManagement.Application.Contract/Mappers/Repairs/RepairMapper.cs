@@ -32,6 +32,7 @@ namespace RepairMan.StoreManagement.Application.Contract.Mappers.Repairs
                 Model = x.Model,
                 Description = x.Description,
                 RepairDate = x.RepairDate,
+                PartsUsedCost = x.PartsUsed.Sum(x => x.Cost),
                 RepairCost = x.RepairCost,
                 StoreShareCost = x.StoreShareCost,
                 CreatedOn = x.CreatedOn,

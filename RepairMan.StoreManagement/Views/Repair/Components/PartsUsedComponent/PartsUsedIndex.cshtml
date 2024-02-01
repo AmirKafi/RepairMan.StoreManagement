@@ -1,4 +1,12 @@
 ﻿<div class="partsUsed-list">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label class="form-label">جمع کل (تومان)</label>
+                <input type="text" class="form-control" id="TotalCost" readonly="readonly">
+            </div>
+        </div>
+    </div>
     <div id="toolbar2">
         <a href="javascript:void(0)" data-url="@Url.Action("Create", "PartsUsed")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItem2"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
         <a href="javascript:void(0)" data-url="@Url.Action("Edit", "PartsUsed")" class="btn btn-outline-warning m-1 editItem2"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
@@ -18,7 +26,7 @@
            data-single-select="true"
            data-toolbar-align="right"
            data-additional-params="window.partsUsedAdditionalParams"
-           data-ajax="window.ajaxRequest2"
+           data-ajax="window.partsUsedAjaxRequest"
            data-response-handler="window.responseHandler2"
            data-url="@Url.Action("LoadPartsUsed", "PartsUsed")">
         <thead>

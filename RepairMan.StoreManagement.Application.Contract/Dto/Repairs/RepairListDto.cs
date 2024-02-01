@@ -11,8 +11,9 @@ namespace RepairMan.StoreManagement.Application.Contract.Dto.Repairs
         public DateTime RepairDate { get; set; }
         public string RepairDateFa => RepairDate.ToFa();
 
+        public Int64 PartsUsedCost { get; set; }
         public Int64 RepairCost { get; set; }
         public Int64 StoreShareCost { get; set; }
-        public Int64 TotalCost => RepairCost + StoreShareCost;
+        public Int64 TotalCost => RepairCost + StoreShareCost + PartsUsedCost;
     }
 }

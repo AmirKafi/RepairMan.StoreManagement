@@ -8,7 +8,10 @@ namespace RepairMan.StoreManagement.Data.EFConfigs
     {
         public void Configure(EntityTypeBuilder<Repair> builder)
         {
-
+            builder.HasMany(x => x.PartsUsed)
+                   .WithOne(x => x.Repair)
+                   .HasForeignKey(x => x.RepairId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
