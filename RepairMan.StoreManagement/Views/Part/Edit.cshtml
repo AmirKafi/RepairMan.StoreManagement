@@ -1,0 +1,50 @@
+﻿@model RepairMan.StoreManagement.Application.Contract.Dto.Parts.PartUpdateDto
+@{
+    ViewBag.Title = "ثبت قطعه";
+}
+<div class="part-create">
+    <div class="card">
+        <div class="card-body">
+            <form autocomplete="off" action="@Url.Action("Edit", "Part")">
+                <input asp-for="Id" hidden="hidden" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Brand" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Brand">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Brand"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Model" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control" asp-for="Model">
+                            <span class="field-validation-valid text-danger" asp-validation-for="Model"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="QTY" class="form-label"></label><b class="text-danger">*</b>
+                            <input type="text" class="form-control numberOnly" asp-for="QTY">
+                            <span class="field-validation-valid text-danger" asp-validation-for="QTY"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CategoriesId" class="form-label"></label><b class="text-danger">*</b>
+                            <select asp-for="CategoriesId" class="form-control selectpicker" multiple="multiple" asp-items="ViewBag.Categories"></select>
+                            <span class="field-validation-valid text-danger" asp-validation-for="CategoriesId"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="form-label"></label><b class="text-danger"></b>
+                            <textarea asp-for="Description" class="form-control ckeditor"></textarea>
+                            <span class="field-validation-valid text-danger" asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

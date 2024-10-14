@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "لیست قطعات";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="part-list">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row filter-row">
+                            <div class="col-sm-3">
+                                <div class="form-group marginless">
+                                    <input type="text" id="Brand" class="form-control rtlrt " maxlength="50" placeholder="برند" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group marginless">
+                                    <input type="text" id="Model" class="form-control rtlrt " maxlength="50" placeholder="مدل" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group marginless">
+                                    @Html.DropDownList("Category", (IEnumerable<SelectListItem>)ViewBag.Categories, new { @class = "form-control selectpicker",data_live_search = true, data_size = "5", data_none_selected_text = "انتخاب دسته بندی" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group marginless">
+                                    @Html.DropDownList("Availability", (IEnumerable<SelectListItem>)ViewBag.Availabilities, new { @class = "form-control selectpicker",data_live_search = true, data_size = "5", data_none_selected_text = "موجودی" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="toolbar">
+                            <a href="javascript:void(0)" data-url="@Url.Action("Create", "Part")" data-dialog-mode="large" class="btn btn-outline-success m-1 createItem"><span class="glyphicon glyphicon-plus"></span> افزودن</a>
+                            <a href="javascript:void(0)" data-url="@Url.Action("Edit", "Part")" class="btn btn-outline-warning m-1 editItem"><span class="glyphicon glyphicon-pencil"></span> ویرایش</a>
+                            <a href="javascript:void(0)" data-url="@Url.Action("Delete", "Part")" class="btn btn-outline-danger m-1 deleteItem"><span class="glyphicon glyphicon-remove"></span> حذف</a>
+                            <a href="javascript:void(0)" data-url="" class="btn btn-outline-dark m-1 refresh"><span class="glyphicon glyphicon-refresh"></span> بروزرسانی</a>
+                        </div>
+                        <table class="table text-nowrap mb-0 align-middle"
+                               data-toolbar="#toolbar"
+                               data-toggle="table"
+                               data-striped="true"
+                               data-show-refresh="false"
+                               data-id-field="id"
+                               data-height="420"
+                               data-click-to-select="true"
+                               data-side-pagination="server"
+                               data-pagination="true"
+                               data-buttons-align="right"
+                               data-single-select="true"
+                               data-toolbar-align="right"
+                               data-additional-params="window.partsAdditionalParams"
+                               data-ajax="window.ajaxRequest"
+                               data-response-handler="window.responseHandler"
+                               data-use-url="@Url.Action("UsePart", "Part")"
+                               data-url="@Url.Action("LoadParts", "Part")">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-width="1" data-checkbox="true" data-halign="center" data-align="center"></th>
+                                    <th data-field="rowNumber" data-width="1">ردیف</th>
+                                    <th data-field="brand" data-width="1000">برند</th>
+                                    <th data-field="model" data-width="1000">مدل</th>
+                                    <th data-field="description" data-width="1000">توضیحات</th>
+                                    <th data-field="qty" data-width="1000">تعداد</th>
+                                    <th data-field="categoriesTitle" data-width="1000">دسته بندی</th>
+                                    <th data-field="createdOnFa" data-width="1000">تاریخ ثبت</th>
+                                    <th data-field="id" data-width="1000" data-formatter="window.partFormatter" data-events="window.partEvents">عملیات</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

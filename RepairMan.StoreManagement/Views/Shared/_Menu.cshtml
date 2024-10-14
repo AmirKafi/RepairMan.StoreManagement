@@ -1,0 +1,72 @@
+﻿<!-- Sidebar Start -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+            <a asp-action="Index" asp-controller="Home" class="text-nowrap logo-img" style="color:black">
+                <img src="~/Content/Images/Limak.Academy-logo.png" width="85px" alt="" />
+                مدیریت اوراقی آقای تعمیر
+            </a>
+            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                <i class="ti ti-x fs-8"></i>
+            </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">اوراقی</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Phone" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Phone.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">گوشی</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Part" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Part.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">قطعات</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Category" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Category.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">دسته بندی قطعات</span>
+                    </a>
+                </li>
+
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">مدیریت</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Expense" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Expense.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">هزینه</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" asp-controller="Repair" asp-action="Index" aria-expanded="false">
+                        <span>
+                            <img src="~/Content/Images/Repair.png" class="menu-icon" />
+                        </span>
+                        <span class="hide-menu">تعمیرات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!--  Sidebar End -->
